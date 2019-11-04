@@ -1,0 +1,28 @@
+pipeline{
+  agent any
+  stages{
+    stage ('checkout'){
+      steps{
+        checkout scm
+      }
+    }
+    stage ('install modules'){
+      steps{
+        sh 'npm install'
+      }
+    }
+    stage ('rebuild'){
+      steps{
+        sh '''
+          npm rebuild node-sass
+        '''
+      }
+    }
+    stage ('build') {
+      steps{
+        sh 'ng build'
+      }
+    }
+    
+  }
+}
